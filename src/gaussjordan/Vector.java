@@ -2,6 +2,16 @@ package gaussjordan;
 
 import java.util.ArrayList;
 
+/*
+ * Vector class implemented by
+ * GALLEGA, Rgee
+ * LACHICA, Daniel
+ * RICANOR, Marl
+ *
+ * Submitted on: 
+ * ADVDISC X22
+ */
+
 public class Vector {
 	private static ArrayList<Integer> vector;
 	
