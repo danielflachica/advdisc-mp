@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class Vector {
 	private static ArrayList<Integer> vector;
 	
+	/* default constructor */
 	public Vector(int dimension) {
 		vector = new ArrayList<>();
 		
@@ -23,10 +24,18 @@ public class Vector {
 		}
 	}
 	
+	/* constructor */
 	public Vector(double[] array, int dimension) {
 		vector = new ArrayList<>();
 		
 		//convert primitive double[] array to Vector class??
+	}
+	
+	/* Gauss-Jordan Elimination function */
+	Vector Gauss_Jordan(ArrayList<Vector> vectors, int dimension, Vector constants) {
+		Vector v = new Vector(dimension);
+		
+		return v;		
 	}
 	
 	
