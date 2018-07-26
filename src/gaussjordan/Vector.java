@@ -13,29 +13,34 @@ import java.util.ArrayList;
  */
 
 public class Vector {
-	private static ArrayList<Integer> vector;
+	private ArrayList<Double> data;
+	private Integer dimension;
 	
-	public Vector(int dimension) {
-		vector = new ArrayList<>();
+	public Vector(Integer dimension) {
+		this.data = new ArrayList<>();
+		this.dimension = dimension;
 		
-		for(int i = 0; i < dimension; i++) {
-			vector.add(0);
+		for(int i = 0; i < this.dimension; i++) {
+			data.add(0.00);
 		}
 	}
 	
 	public Vector(double[] array, int dimension) {
-		vector = new ArrayList<>();
+		this.data = new ArrayList<>();
+		this.dimension = dimension;
 		
-		//convert primitive double[] array to Vector class??
+		for(int i = 0; i < this.dimension; i++) {
+			data.add(array[i]);
+		}
 	}
 	
 	
-	/* A helper function to print a given vector */
+	/* A helper function to print this vector */
 	public void show() {
 		System.out.print("[");
-		for(int i = 0; i < vector.size(); i++) {
-			System.out.print(vector.get(i));
-			if(i < vector.size()-1)
+		for(int i = 0; i < this.dimension; i++) {
+			System.out.print(data.get(i));
+			if(i < this.dimension-1)
 				System.out.print(", ");
 		}
 		System.out.println("]\n");
