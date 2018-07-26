@@ -23,6 +23,12 @@ public class Vector {
 		}
 	}
 	
+	public Vector(double[] array, int dimension) {
+		vector = new ArrayList<>();
+		
+		//convert primitive double[] array to Vector class??
+	}
+	
 	
 	/* A helper function to print a given vector */
 	public void show() {
