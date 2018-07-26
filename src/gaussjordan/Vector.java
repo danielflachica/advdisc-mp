@@ -38,6 +38,12 @@ public class Vector {
 		return v;		
 	}
 	
+	/* span function */
+	int span(ArrayList<Vector> vectors, int dimension) {
+		
+		return -1;
+	}
+	
 	
 	/* A helper function to print a given vector */
 	public void show() {
