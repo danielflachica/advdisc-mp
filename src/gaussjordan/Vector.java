@@ -2,6 +2,7 @@ package gaussjordan; /*** REMOVE PACKAGE DECLARATION BEFORE SUBMITTING!!! ***/
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 /*
  * Vector class implemented by
@@ -70,20 +71,24 @@ public class Vector {
 	}
         
         public void swap(ArrayList<Vector> vectors,Vector constants,int v1, int v2){
-            Vector tempvec = vectors.get(v1);
-            double[] tempArr  = new double[vectors.get(v1).dimension];
             
-            for(int m = 0; m < vectors.get(v1).dimension; m++){
-                tempArr[m] = vectors.get(v1).data.get(m);
-            }
-            Vector temp = new Vector(tempArr,tempvec.dimension);
-            vectors.set(v1, vectors.get(v2));
-            vectors.set(v2, temp);
+            Collections.swap(constants.data, v1, v2);
+            Collections.swap(vectors, v1, v2);
             
-            //swap the constants as well
-            double tempCons = constants.data.get(v1);
-            constants.data.set(v1, constants.data.get(v2));
-            constants.data.set(v2, tempCons);
+//            Vector tempvec = vectors.get(v1);
+//            double[] tempArr  = new double[vectors.get(v1).dimension];
+//            
+//            for(int m = 0; m < vectors.get(v1).dimension; m++){
+//                tempArr[m] = vectors.get(v1).data.get(m);
+//            }
+//            Vector temp = new Vector(tempArr,tempvec.dimension);
+//            vectors.set(v1, vectors.get(v2));
+//            vectors.set(v2, temp);
+//            
+//            //swap the constants as well
+//            double tempCons = constants.data.get(v1);
+//            constants.data.set(v1, constants.data.get(v2));
+//            constants.data.set(v2, tempCons);
         }
         
         public void solve(ArrayList<Vector> vectors, Vector constants, int rowStart){
