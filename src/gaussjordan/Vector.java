@@ -208,7 +208,7 @@ public class Vector {
                         }
                     }
                 }else
-                    //System.out.println("Vector "+i+"s diagonal is  0");
+                    System.out.println("Vector "+i+"s diagonal is  0");
                                
                
                 i--;
@@ -253,9 +253,9 @@ public class Vector {
 	/* Driver Method */
 	public static void main(String[] args) {
 		Integer dimension = 5;
-		double[] arr = {1, 2, 3, 4};
-                double[] arr2 = {2,3,4,5};
-                double[] arr3 = {1,3,5,7};
+		double[] arr = {1, 2, 4};
+                double[] arr2 = {1,3,0};
+                double[] arr3 = {1,5,5};
                 double[] arr4 = {2,7,8,9};
 		Vector v;
 		
@@ -277,7 +277,7 @@ public class Vector {
 
 
                 
-        double[] c = {1,1,1,1};
+        double[] c = {5,8,2};
                 
         ArrayList<Vector> list = new ArrayList<>();
         Vector v1 = new Vector(arr2,arr2.length);
@@ -289,7 +289,7 @@ public class Vector {
         list.add(v);
         list.add(v1);
         list.add(v2);
-        list.add(v3);
+        //list.add(v3);
         //list.add(v4);
         System.out.println("Vectors before being put into matrix: ");
         for(Vector row:list)
@@ -308,9 +308,9 @@ public class Vector {
                 vc = v.Gauss_Jordan(list, vc.dimension, vc);
                 
 		System.out.println();
-//                for(int i = 0; i < list.size();i++)
-//                    System.out.println(Arrays.toString(list.get(i).data.toArray()));
-//                System.out.println();
+                for(int i = 0; i < list.size();i++)
+                    System.out.println(Arrays.toString(list.get(i).data.toArray()));
+                System.out.println();
                 System.out.println(Arrays.toString(vc.data.toArray()));
 
 		
