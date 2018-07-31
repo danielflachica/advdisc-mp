@@ -68,8 +68,32 @@ public class Vector {
 		
 		return this;
 	}
+	
+	public static ArrayList<Vector> make_matrix(ArrayList<Vector> vectors) {
+		// TODO Auto-generated method stub
+		
+		ArrayList<Vector>matrix = new ArrayList<Vector>();
+		
+		for(int i = 0; i < vectors.get(0).data.size(); i++)
+		{
+			double[] arr = new double[vectors.size()];
+			
+			for(int j = 0; j < vectors.size(); j++)
+			{
+				arr[j] = vectors.get(j).data.get(i);
+			}
+				
+			
+			matrix.add(new Vector(arr, arr.length));
+	
+			
+		}
+		
+		
+		return matrix;
+	}
         
-        public void swap(ArrayList<Vector> vectors,Vector constants,int v1, int v2){
+        public static void swap(ArrayList<Vector> vectors,Vector constants,int v1, int v2){
             Vector tempvec = vectors.get(v1);
             double[] tempArr  = new double[vectors.get(v1).dimension];
             
@@ -86,7 +110,7 @@ public class Vector {
             constants.data.set(v2, tempCons);
         }
         
-        public void solve(ArrayList<Vector> vectors, Vector constants, int rowStart){
+        public static void solve(ArrayList<Vector> vectors, Vector constants, int rowStart){
             double[] tempArr = new double[vectors.get(rowStart).dimension];
             
             for(int n = rowStart+1; n < vectors.size(); n++){ //gets the vector
@@ -108,7 +132,7 @@ public class Vector {
             }
         }
 	
-        public void ref(ArrayList<Vector> vectors, int dimension, Vector constants){
+        public static void ref(ArrayList<Vector> vectors, int dimension, Vector constants){
             int i =0;
             
             while(i < dimension){
@@ -155,19 +179,19 @@ public class Vector {
             }
         }
         
-        public void rref(ArrayList<Vector> vectors, int dimension, Vector constants){
+        public static void rref(ArrayList<Vector> vectors, int dimension, Vector constants){
             
         }
         
 	/* Gauss-Jordan Elimination function */
-	Vector Gauss_Jordan(ArrayList<Vector> vectors, int dimension, Vector constants) {
+	public static Vector Gauss_Jordan(ArrayList<Vector> vectors, int dimension, Vector constants) {
 		Vector v = new Vector(dimension);
 		
-                if(vectors.size() != dimension)
-                    return null;
-                //else
-                ref(vectors, dimension,constants);
-                rref(vectors, dimension, constants);
+        if(vectors.size() != dimension)
+            return null;
+        //else
+        ref(vectors, dimension,constants);
+        rref(vectors, dimension, constants);
 		return v;			
 	}
 	
@@ -207,32 +231,48 @@ public class Vector {
 		v.show();
 		
 		double[] arr2 = {2,3,4,5};
-                double[] arr3 = {1,3,5,7};
-                double[] arr4 = {2,7,8,9};
-                double[] arr5 = {2,9,1,4,2};
+        double[] arr3 = {1,3,5,7};
+        double[] arr4 = {2,7,8,9};
+        double[] arr5 = {2,9,1,4,2};
 
                 
-                double[] c = {1,1,1,1};
+        double[] c = {1,1,1,1};
                 
-                ArrayList<Vector> list = new ArrayList<>();
-                Vector v1 = new Vector(arr2,arr2.length);
-                Vector v2 = new Vector(arr3,arr3.length);
-                Vector v3 = new Vector(arr4,arr4.length);
-                //Vector v4 = new Vector(arr5,arr5.length);
-                Vector vc = new Vector(c,c.length);
+        ArrayList<Vector> list = new ArrayList<>();
+        Vector v1 = new Vector(arr2,arr2.length);
+        Vector v2 = new Vector(arr3,arr3.length);
+        Vector v3 = new Vector(arr4,arr4.length);
+        //Vector v4 = new Vector(arr5,arr5.length);
+        Vector vc = new Vector(c,c.length);
+        
+        list.add(v);
+        list.add(v1);
+        list.add(v2);
+        list.add(v3);
+        //list.add(v4);
+        System.out.println("Vectors before being put into matrix: ");
+        for(Vector row:list)
+        {
+        	row.show();
+        }
+        list = Vector.make_matrix(list);
+        
+        System.out.println("Vectors put into matrix: ");
+        for(Vector row : list)
+        {
+        	row.show();
+        }
                 
-                list.add(v);
-                list.add(v1);
-                list.add(v2);
-                list.add(v3);
-                //list.add(v4);
-                
-                v.Gauss_Jordan(list, vc.dimension, vc);
+
+        Vector.Gauss_Jordan(list, vc.dimension, vc);
 		System.out.println();
-                for(int i = 0; i < list.size();i++)
-                    System.out.println(Arrays.toString(list.get(i).data.toArray()));
+        for(int i = 0; i < list.size();i++)
+             System.out.println(Arrays.toString(list.get(i).data.toArray()));
                 
-                System.out.println(Arrays.toString(vc.data.toArray()));
+        System.out.println(Arrays.toString(vc.data.toArray()));
+
 		
 	}
+
+	
 }
