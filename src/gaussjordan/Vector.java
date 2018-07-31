@@ -90,25 +90,21 @@ public class Vector {
             double[] tempArr = new double[vectors.get(rowStart).dimension];
             
             for(int n = rowStart+1; n < vectors.size(); n++){ //gets the vector
-                double scale = vectors.get(n).data.get(rowStart);
+                if(vectors.get(n).data.get(rowStart) > 0.00){// will only do row addition if the candidate row is not 0.00
+                    double scale = vectors.get(n).data.get(rowStart);
                 
-                //scale the constants vector
-                double tempCons = constants.data.get(rowStart) * scale * -1; 
-                //scale the vectors
-                for(int m = 0; m < vectors.get(rowStart).dimension; m++){
-                    tempArr[m] = vectors.get(rowStart).data.get(m) * scale * -1;
+                    //scale the constants vector
+                    double tempCons = constants.data.get(rowStart) * scale * -1; 
+                    //scale the vectors
+                    for(int m = 0; m < vectors.get(rowStart).dimension; m++){
+                        tempArr[m] = vectors.get(rowStart).data.get(m) * scale * -1;
+                    }
+                
+                    Vector temp = new Vector(tempArr,tempArr.length);
+                    // performs row addition to the vector 
+                    vectors.set(n, temp.add(vectors.get(n)));
+                    constants.data.set(n, constants.data.get(n) + tempCons); //adjusts the vectors under the selected vector
                 }
-                
-                Vector temp = new Vector(tempArr,tempArr.length);
-                // performs row addition to the vector 
-                vectors.set(n, temp.add(vectors.get(n)));
-                constants.data.set(n, constants.data.get(n) + tempCons); //adjusts the appr
-                
-//                for(int b = 0; b < vectors.get(rowStart).dimension; b++){//gets the data 
-//                    double converted = scale * vectors.get(rowStart).data.get(b);
-//                    
-//                    vectors.get(n).data.get(b);
-//                }
             }
         }
 	
@@ -121,18 +117,19 @@ public class Vector {
                 // find pivot row 
                 int max = i;
                 for (int y = i+1; y < dimension; y++) {
+                    System.out.println("Comparing: "+Math.abs(vectors.get(y).data.get(i))+" AND "+Math.abs(vectors.get(max).data.get(i)));
                     if (Math.abs(vectors.get(y).data.get(i)) > Math.abs(vectors.get(max).data.get(i))) {
-                        max = i;
+                        max = y;
                     }
                 }
-                //System.out.println("Swapping: "+max+" and "+i);
+                System.out.println("Swapping: "+max+" and "+i);
                 
                 if(max != i)
-                    swap(vectors,constants,max,i);
+                swap(vectors,constants,max,i);
                 
                 double scale = 1.00;
                 
-                for(int x = i; x < dimension; x++){
+                for(int x = i; x < dimension; x++){ // for the row being used
                     if(i == x){ // part of the diagonal
                         scale = vectors.get(i).data.get(x);
                         vectors.get(i).data.set(x, 1.00);
@@ -144,12 +141,15 @@ public class Vector {
                         vectors.get(i).data.set(x,vectors.get(i).data.get(x)/scale);
                 }
                 
-                solve(vectors, constants,i);
+                solve(vectors, constants,i); // doing the row operations on the matrix
                 
                 
                 //System.out.println(i + "th Iteration for Vector: "+Arrays.toString(vectors.get(i).data.toArray()));
                 //System.out.println(i + "th Iteration for Constants: "+Arrays.toString(constants.data.toArray()));
                 //System.out.println(Arrays.toString(constants.data.toArray()));
+                System.out.println("After "+i+"th iteration, matrix looks like: ");
+                for(int f = 0; f < dimension;f++)
+                    System.out.println(Arrays.toString(vectors.get(f).data.toArray()));
                 
                 i++;
             }
@@ -194,7 +194,7 @@ public class Vector {
 	/* Driver Method */
 	public static void main(String[] args) {
 		Integer dimension = 5;
-		double[] arr = {3.1, 9.2, 28.2, 59.6, 18.7};
+		double[] arr = {1, 2, 3, 4};
 		Vector v;
 		
 		v = new Vector(dimension);
@@ -206,29 +206,29 @@ public class Vector {
 		v.scale(1);
 		v.show();
 		
-		double[] arr2 = {1,2,3,4,5};
-                double[] arr3 = {9.2,2,3.3,4.5,5.2};
-                double[] arr4 = {1.4,2.2,1.3,5.4,3.5};
-                double[] arr5 = {4.1,2.7,8.3,7.4,5.5};
+		double[] arr2 = {2,3,4,5};
+                double[] arr3 = {1,3,5,7};
+                double[] arr4 = {2,7,8,9};
+                double[] arr5 = {2,9,1,4,2};
 
                 
-                double[] c = {1.4,2.3,6.5,2.5,8.2};
+                double[] c = {1,1,1,1};
                 
                 ArrayList<Vector> list = new ArrayList<>();
                 Vector v1 = new Vector(arr2,arr2.length);
                 Vector v2 = new Vector(arr3,arr3.length);
                 Vector v3 = new Vector(arr4,arr4.length);
-                Vector v4 = new Vector(arr5,arr5.length);
+                //Vector v4 = new Vector(arr5,arr5.length);
                 Vector vc = new Vector(c,c.length);
                 
                 list.add(v);
                 list.add(v1);
                 list.add(v2);
                 list.add(v3);
-                list.add(v4);
+                //list.add(v4);
                 
                 v.Gauss_Jordan(list, vc.dimension, vc);
-		
+		System.out.println();
                 for(int i = 0; i < list.size();i++)
                     System.out.println(Arrays.toString(list.get(i).data.toArray()));
                 
