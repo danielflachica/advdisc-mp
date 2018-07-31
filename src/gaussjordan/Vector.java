@@ -40,6 +40,9 @@ public class Vector {
 	
 	public Vector scale(double scalar)
 	{
+		if(scalar == 0) scalar = 1;
+		else if (scalar < 0) scalar *= -1;
+		
 		for(int i = 0; i < this.data.size(); i++)
 		{
 			Double currentElem = this.data.get(i);
