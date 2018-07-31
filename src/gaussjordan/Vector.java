@@ -283,31 +283,17 @@ public class Vector {
 	public static void main(String[] args) {
 		Integer dimension = 5;
 		double[] arr = {1, 2, 4};
-                double[] arr2 = {1,3,0};
-                double[] arr3 = {1,5,5};
-                double[] arr4 = {2,7,8,9};
-
-		
-
-		//double[] arr2 = {2,3,3,7};
-    //double[] arr3 = {3,4,5,8};
-    //double[] arr4 = {4,5,7,9};
-    //double[] arr5 = {2,9,1,4,2};
-
+        double[] arr2 = {1,3,0};
+        double[] arr3 = {1,5,5};
                 
         ArrayList<Vector> list = new ArrayList<>();
         Vector v = new Vector(arr,arr.length);
         Vector v1 = new Vector(arr2,arr2.length);
         Vector v2 = new Vector(arr3,arr3.length);
-        Vector v3 = new Vector(arr4,arr4.length);
-        //Vector v4 = new Vector(arr5,arr5.length);
 
-        
         list.add(v);
         list.add(v1);
         list.add(v2);
-        //list.add(v3);
-        //list.add(v4);
         System.out.println("Vectors before being put into matrix: ");
         for(Vector row:list)
         {
