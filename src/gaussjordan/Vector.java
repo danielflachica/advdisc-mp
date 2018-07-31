@@ -217,7 +217,7 @@ public class Vector {
         
 	 /* Gauss-Jordan Elimination function */
 
-     static Vector Gauss_Jordan(ArrayList<Vector> vectors, int dimension, Vector constants) {
+     public static Vector Gauss_Jordan(ArrayList<Vector> vectors, int dimension, Vector constants) {
 		
 		
             if(vectors.size() != dimension)
