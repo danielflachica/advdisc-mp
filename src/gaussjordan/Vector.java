@@ -181,7 +181,7 @@ public class Vector {
         }
         
 
-        public void rref(ArrayList<Vector> vectors, int dimension, Vector constants){
+        public static void rref(ArrayList<Vector> vectors, int dimension, Vector constants){
             int i = vectors.size()-1; 
             //System.out.println("*************** AT RREF ********************");
             while(i >= 0){
@@ -215,13 +215,16 @@ public class Vector {
             }
         }
         
-	/* Gauss-Jordan Elimination function */
+	 /* Gauss-Jordan Elimination function */
 
-	Vector Gauss_Jordan(ArrayList<Vector> vectors, int dimension, Vector constants) {
+     static Vector Gauss_Jordan(ArrayList<Vector> vectors, int dimension, Vector constants) {
 		
 		
             if(vectors.size() != dimension)
-                return null;
+            {
+            	System.out.println("\nNO SOLUTION\n");
+            	return null;
+            }  
             //else
             ref(vectors, dimension,constants);
             rref(vectors, dimension, constants);
@@ -231,9 +234,35 @@ public class Vector {
 	}
 	
 	/* span function */
-	int span(ArrayList<Vector> vectors, int dimension) {
+	public static int span(ArrayList<Vector> vectors, int dimension) {
+		int span = 0;
+		double[] c = {5,8,2};
 		
-		return -1;
+        Vector vc = new Vector(c,c.length);
+        vc = Vector.Gauss_Jordan(vectors, vc.dimension, vc);
+        
+        System.out.println();
+        for(int i = 0; i < vectors.size();i++)
+            System.out.println(Arrays.toString(vectors.get(i).data.toArray()));
+        System.out.println();
+        System.out.println(Arrays.toString(vc.data.toArray()));
+        
+        for(Vector v: vectors)
+        {
+        	boolean isNonZero = false;
+        	
+        	for(int i = 0; i < v.dimension; i++)
+        	{
+        		if(v.data.get(i) != 0)
+        		{
+        			isNonZero = true;
+        			break;
+        		}
+        	}
+        	if(isNonZero) span++;
+        }
+		
+		return span;
 	}
 	
 	
@@ -257,17 +286,7 @@ public class Vector {
                 double[] arr2 = {1,3,0};
                 double[] arr3 = {1,5,5};
                 double[] arr4 = {2,7,8,9};
-		Vector v;
-		
-		v = new Vector(dimension);
-		v.show();
-		//double[] arr = {1, 2, 1, 2};
-		v = new Vector(arr, arr.length);
-		v.show();
-		
-		v.scale(1);
-		v.show();
-                
+
 		
 
 		//double[] arr2 = {2,3,3,7};
@@ -275,16 +294,14 @@ public class Vector {
     //double[] arr4 = {4,5,7,9};
     //double[] arr5 = {2,9,1,4,2};
 
-
-                
-        double[] c = {5,8,2};
                 
         ArrayList<Vector> list = new ArrayList<>();
+        Vector v = new Vector(arr,arr.length);
         Vector v1 = new Vector(arr2,arr2.length);
         Vector v2 = new Vector(arr3,arr3.length);
         Vector v3 = new Vector(arr4,arr4.length);
         //Vector v4 = new Vector(arr5,arr5.length);
-        Vector vc = new Vector(c,c.length);
+
         
         list.add(v);
         list.add(v1);
@@ -303,15 +320,11 @@ public class Vector {
         {
         	row.show();
         }
+        
+        int span = Vector.span(list, list.get(0).dimension);
+        System.out.println("Span is " + span);
                 
-
-                vc = v.Gauss_Jordan(list, vc.dimension, vc);
-                
-		System.out.println();
-                for(int i = 0; i < list.size();i++)
-                    System.out.println(Arrays.toString(list.get(i).data.toArray()));
-                System.out.println();
-                System.out.println(Arrays.toString(vc.data.toArray()));
+		
 
 		
 	}
