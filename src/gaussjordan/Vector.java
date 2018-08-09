@@ -16,6 +16,15 @@ import java.util.Collections;
 
 public class Vector {
 	private ArrayList<Double> data;
+	
+	public ArrayList<Double> getData() {
+		return data;
+	}
+
+	public Integer getDimension() {
+		return dimension;
+	}
+
 	private Integer dimension;
 	
 	/* default constructor */
