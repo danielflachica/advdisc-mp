@@ -9,7 +9,26 @@ import java.util.List;
 	
 	public Matrix(int dimension)
 	{
+		rows = dimension;
+		columns = dimension;
 		
+		matrix = new Double[rows][columns];
+		
+		for(int row = 0; row < rows; row++)
+		{
+			for(int col = 0; col < columns; col++)
+			{
+				if(row == col)
+				{
+					matrix[row][col] = (double) 1;
+				}
+				else
+				{
+					matrix[row][col] = (double) 0;
+				}
+			
+			}
+		}
 	}
 	
 	public Matrix(ArrayList<Vector>list, int dimension)

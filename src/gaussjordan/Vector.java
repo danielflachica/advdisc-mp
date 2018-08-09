@@ -308,16 +308,24 @@ public class Vector {
         {
         	row.show();
         }
-        list = Vector.make_matrix(list);
+        ArrayList<Vector> transposedList = Vector.make_matrix(list);
         
         System.out.println("Vectors put into matrix: ");
-        for(Vector row : list)
+        for(Vector row : transposedList)
         {
         	row.show();
         }
         
-        int span = Vector.span(list, list.get(0).dimension);
+        int span = Vector.span(transposedList, transposedList.get(0).dimension);
         System.out.println("Span is " + span);
+        
+        Matrix m = new Matrix(4);
+        System.out.println("\nInitializing m as an identity matrix: ");
+        m.showMatrix();
+        
+        m = new Matrix(list,list.get(0).dimension);
+        System.out.println("\nInitializing m from existing list of vectors: ");
+        m.showMatrix();
                 
 		
 
