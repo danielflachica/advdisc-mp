@@ -7,6 +7,55 @@ import java.util.List;
 	private int rows;
 	private int columns;
 	
+	public Double[][] getMatrix() {
+		return matrix;
+	}
+
+	public void setMatrix(Double[][] matrix) {
+		this.matrix = matrix;
+	}
+
+	public void setRows(int rows) {
+		this.rows = rows;
+	}
+
+	public void setColumns(int columns) {
+		this.columns = columns;
+	}
+	
+	public int getRows() {
+		return rows;
+	}
+
+	public int getColumns() {
+		return columns;
+	}
+	
+	public Matrix(int rows, int cols)
+	{
+		this.rows = rows;
+		this.columns = cols;
+		
+		this.matrix = new Double[rows][cols];
+		
+		for(int row = 0; row < this.rows; row++)
+		{
+			for(int col = 0; col < this.columns; col++)
+			{
+				matrix[row][col] = 0.0;
+			}
+		}
+	}
+	
+	public Matrix(Double [][] matrix)
+	{
+		this.matrix = matrix;
+		this.rows = matrix.length;
+		this.columns = matrix[0].length;
+	}
+
+	
+	
 	public Matrix(int dimension)
 	{
 		rows = dimension;
@@ -49,6 +98,33 @@ import java.util.List;
 		
 	}
 	
+	public Matrix times(Matrix other)
+	{
+		if(this.getColumns() != other.getRows())
+		{
+			System.out.println("\nERROR: Size mismatch between matrices.\n");
+			return null;
+		}
+		
+		Matrix productMatrix = new Matrix(this.getRows(), other.getColumns());
+		productMatrix.showMatrix();
+		
+		for(int pRow = 0; pRow < productMatrix.getRows(); pRow++)
+		{
+			for(int pCol = 0; pCol < productMatrix.getColumns(); pCol++)
+			{
+					System.out.println("For row " + pRow + " and col " + pCol);
+					for(int col = 0; col < this.getColumns(); col++)
+					{
+						productMatrix.matrix[pRow][pCol] += this.matrix[pRow][col] * other.matrix[col][pCol];
+					}
+			}
+		}
+
+		
+		return productMatrix;
+	}
+	
 	public void showMatrix()
 	{	
 		System.out.println("No. of rows: " + rows);
@@ -62,6 +138,8 @@ import java.util.List;
 			}
 			System.out.println("\n");
 		}
+		
+		
 		
 	}
  }
