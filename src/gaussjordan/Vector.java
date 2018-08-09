@@ -359,7 +359,7 @@ public class Vector {
         
         
                 
-		
+	System.out.println("Determinant is: "+m.det());
 
 		
 	}
