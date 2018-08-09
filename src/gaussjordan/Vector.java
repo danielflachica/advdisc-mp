@@ -290,7 +290,7 @@ public class Vector {
 	
 	/* Driver Method */
 	public static void main(String[] args) {
-		Integer dimension = 5;
+
 		double[] arr = {1, 2, 4};
         double[] arr2 = {1,3,0};
         double[] arr3 = {1,5,5};
@@ -326,6 +326,38 @@ public class Vector {
         m = new Matrix(list,list.get(0).dimension);
         System.out.println("\nInitializing m from existing list of vectors: ");
         m.showMatrix();
+        
+		Integer dimension1 = 3;
+		
+		double [] arr4 = {1,2,3};
+		double [] arr5 = {4,5,6};
+		double [] arr6 = {7,8,9};
+        
+        Vector v3 = new Vector(arr4, dimension1);
+        Vector v4 = new Vector(arr5, dimension1);
+        
+        ArrayList<Vector> vectorList1 = new ArrayList<Vector>();
+        vectorList1.add(v3);
+        vectorList1.add(v4);
+        
+        Double [][] matrix1 = { {1.0,2.0,3.0},{4.0,5.0,6.0} };
+        Double [][] matrix2 = { {1.0,2.0,1.0},{3.0,4.0,1.0},{5.0,6.0,1.0} };
+        
+        Matrix m1 = new Matrix(matrix1);
+        Matrix m2 = new Matrix(matrix2);
+        
+        Matrix m3 = m1.times(m2);
+        
+        m3.showMatrix();
+        
+        
+        
+        
+        
+        
+        
+        
+        
                 
 		
 
