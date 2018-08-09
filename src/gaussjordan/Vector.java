@@ -1,4 +1,4 @@
-package gaussjordan;
+package gaussjordan; /*** REMOVE PACKAGE DECLARATION BEFORE SUBMITTING!!! ***/
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +16,6 @@ import java.util.Collections;
 
 public class Vector {
 	private ArrayList<Double> data;
-	private Integer dimension;
 	
 	public ArrayList<Double> getData() {
 		return data;
@@ -26,7 +25,7 @@ public class Vector {
 		return dimension;
 	}
 
-	
+	private Integer dimension;
 	
 	/* default constructor */
 	public Vector(Integer dimension) {
@@ -292,7 +291,7 @@ public class Vector {
 	/* Driver Method */
 	public static void main(String[] args) {
 		Integer dimension = 5;
-		double[] arr = {1,2,4};
+		double[] arr = {1, 2, 4};
         double[] arr2 = {1,3,0};
         double[] arr3 = {1,5,5};
                 
@@ -304,14 +303,6 @@ public class Vector {
         list.add(v);
         list.add(v1);
         list.add(v2);
-        
-        Matrix m = new Matrix(list, list.get(0).dimension);
-        
-        System.out.println("\nVectors put into matrix: \n");
-        
-        m.showMatrix();
-        
-        
         System.out.println("Vectors before being put into matrix: ");
         for(Vector row:list)
         {
@@ -327,7 +318,7 @@ public class Vector {
         
         int span = Vector.span(list, list.get(0).dimension);
         System.out.println("Span is " + span);
-        
+                
 		
 
 		

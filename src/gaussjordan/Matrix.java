@@ -1,9 +1,7 @@
 package gaussjordan;
-
-import java.util.ArrayList;
+ import java.util.ArrayList;
 import java.util.List;
-
-public class Matrix 
+ public class Matrix 
 {
 	private Double matrix[][];
 	private int rows;
@@ -47,5 +45,4 @@ public class Matrix
 		}
 		
 	}
-
-}
+ }
