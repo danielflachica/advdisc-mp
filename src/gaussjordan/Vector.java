@@ -327,7 +327,7 @@ public class Vector {
         System.out.println("\nInitializing m from existing list of vectors: ");
         m.showMatrix();
                 
-		
+	System.out.println("Determinant is: "+m.det());
 
 		
 	}
