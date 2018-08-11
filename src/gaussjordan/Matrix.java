@@ -5,15 +5,15 @@ import java.util.Collections;
 import java.util.List;
  public class Matrix 
 {
-	private Double matrix[][];
+	private double matrix[][];
 	private int rows;
 	private int columns;
 	
-	public Double[][] getMatrix() {
+	public double[][] getMatrix() {
 		return matrix;
 	}
 
-	public void setMatrix(Double[][] matrix) {
+	public void setMatrix(double[][] matrix) {
 		this.matrix = matrix;
 	}
 
@@ -38,7 +38,7 @@ import java.util.List;
 		this.rows = rows;
 		this.columns = cols;
 		
-		this.matrix = new Double[rows][cols];
+		this.matrix = new double[rows][cols];
 		
 		for(int row = 0; row < this.rows; row++)
 		{
@@ -49,7 +49,7 @@ import java.util.List;
 		}
 	}
 	
-	public Matrix(Double [][] matrix)
+	public Matrix(double [][] matrix)
 	{
 		this.matrix = matrix;
 		this.rows = matrix.length;
@@ -63,7 +63,7 @@ import java.util.List;
 		rows = dimension;
 		columns = dimension;
 		
-		matrix = new Double[rows][columns];
+		matrix = new double[rows][columns];
 		
 		for(int row = 0; row < rows; row++)
 		{
@@ -87,7 +87,7 @@ import java.util.List;
 		rows = dimension;
 		columns = list.size();
 		
-		matrix = new Double[rows][columns];
+		matrix = new double[rows][columns];
 		
 		ArrayList<Vector>tempMatrix = Vector.make_matrix(list);
 		for(int row = 0; row < rows; row++)
@@ -135,6 +135,24 @@ import java.util.List;
 		for(int row = 0; row < rows; row++)
 		{
 			for(int col = 0; col < columns; col++)
+			{
+				System.out.print(matrix[row][col] + " ");
+			}
+			System.out.println("\n");
+		}
+		
+		
+		
+	}
+	
+	public void showMatrix(double [][] matrix)
+	{	
+		System.out.println("No. of rows: " + matrix.length);
+		System.out.println("No. of cols: " + matrix[0].length);
+		
+		for(int row = 0; row < matrix.length; row++)
+		{
+			for(int col = 0; col < matrix[0].length; col++)
 			{
 				System.out.print(matrix[row][col] + " ");
 			}
@@ -317,15 +335,170 @@ import java.util.List;
                  
             if(vectors.size() != dimension)
                 return 0.00;
-            
-            
+
             det = ref(vectors, dimension,det);
             det = rref(vectors, dimension,det);
             System.out.println("Determinant at Gauss Jordan is: "+det);
             return det;
         }
+        
+        private double [][] mergeMatrices(double [][] matrix1, double [][] matrix2)
+        {
+        	double [][] mergedMatrix = new double [matrix1.length][matrix1[0].length+ matrix2[0].length];
+        	
+        	for(int i = 0; i < matrix1.length; i++)
+        	{
+        		for(int j = 0; j < matrix1[0].length; j++)
+        		{
+        			mergedMatrix[i][j] = matrix1[i][j];
+        		}
+        		for(int k = matrix1[0].length; k < mergedMatrix[0].length; k++)
+        		{
+        			mergedMatrix[i][k] = matrix2[i][k-matrix1[0].length];
+        		}
+        	}
+        	
+        	return mergedMatrix;
+        }
+        
+        public Matrix inverse()
+        {
+        	if(this.rows != this.columns || det() == 0)
+        		return null;
+        	
+        	Matrix identityMatrix = new Matrix(this.rows);
+        	
+        	//System.out.println("Inverse matrix (identity) initialized: \n" );
+        	//identityMatrix.showMatrix();
+        	
+        	double [][] merged = mergeMatrices(this.matrix, identityMatrix.matrix);
+        	Matrix mergedMatrix = new Matrix(merged);
+        	
+        	
+        	ref(mergedMatrix.matrix);
+        	rref(mergedMatrix.matrix);
+        	
+        	double [][] inverse = new double[mergedMatrix.getRows()][];
+        	
+        	for(int i = 0; i < mergedMatrix.getRows(); i++)
+        	{
+        		inverse[i] = Arrays.copyOfRange(mergedMatrix.matrix[i],mergedMatrix.getColumns()/2 ,mergedMatrix.getColumns());
+        	}
+        	Matrix inverseMatrix = new Matrix(inverse);
+        	
+        	
+        	return inverseMatrix;
+        }
+        
+        public void ref(double [][] matrix)
+        {
+        	
+        	int i = 0;
+        	while(i < matrix.length)
+        	{
+        		if(matrix[i][i] == 0)
+        		{
+        			int pivot = i;
+        			
+        			for(int y = i+1; y < matrix.length; y++)
+        			{
+        				if(Math.abs(matrix[y][i]) > Math.abs(matrix[pivot][i]))
+        				{
+        					pivot = y;
+        				}
+        			}
+        			if(pivot != i)
+        			{
+        				swap(matrix, pivot, i);
+        			}
+        		}
+        		/*
+        		 * If the diagonal element is not 1, divide it by itself to get 1. 
+        		Then divide the rest of the row by that divisor.
+        		*/
+        		if(matrix[i][i] != 1)
+        		{
+        			Vector v = new Vector(matrix[i], matrix[i].length);
+        			v.scale(1.0/matrix[i][i]);
+        			matrix[i] = v.getAsArray();
 
-        private void translateToVector(ArrayList<Vector> list) {
+        		}
+        		
+        		for(int lowerRow = i+1; lowerRow < matrix.length; lowerRow++)
+        		{
+        			if(matrix[lowerRow][i] != 0.0)
+        			{
+        				Vector scaledRow = new Vector(matrix[i], matrix[i].length);
+        				
+        				double scalar = matrix[lowerRow][i]*-1;
+        				
+        				scaledRow.scale(scalar);
+        				
+        				Vector rowAdd = new Vector(matrix[lowerRow], matrix[lowerRow].length);
+ 
+        				//rowAdd.scale(-1);
+        				//identityRowAdd.scale(-1);
+        				
+        				rowAdd = rowAdd.add(scaledRow);
+        				
+        				matrix[lowerRow] = rowAdd.getAsArray();
+        				
+        				
+        			}
+        		}
+        		//System.out.println("Matrix at " + i + ": \n");
+        		//this.showMatrix();
+        		
+        		i++;
+
+        	}
+        	
+        }
+        
+        public void rref(double matrix[][])
+        {
+        	int i = matrix.length-1;
+        	while(i >= 0)
+        	{
+
+        		
+        		for(int upperRow = i-1; upperRow >= 0; upperRow--)
+        		{
+        			if(matrix[upperRow][i] != 0.0)
+        			{
+        				Vector scaledRow = new Vector(matrix[i], matrix[i].length);
+        				
+        				
+        				double scalar = (matrix[upperRow][i]*-1);
+        				
+        				scaledRow.scale(scalar);
+        				
+        				Vector rowAdd = new Vector(matrix[upperRow], matrix[upperRow].length);
+        				
+        				//rowAdd.scale(-1);
+        				//identityRowAdd.scale(-1);
+        				
+        				rowAdd = rowAdd.add(scaledRow);
+        				
+        				matrix[upperRow] = rowAdd.getAsArray();
+        				
+        				
+        			}
+        		}
+        		
+        		i--;
+        	}
+        }
+        
+        private void swap(double matrix[][], int row1, int row2)
+        {
+        	double temp[] = matrix[row1];
+        	matrix[row1] = matrix[row2];
+        	matrix[row2] = temp;
+        }
+        
+
+		private void translateToVector(ArrayList<Vector> list) {
             
             for(int i = 0; i < matrix.length; i++){
                 Vector v;
