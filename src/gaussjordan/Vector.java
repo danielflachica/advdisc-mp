@@ -79,6 +79,17 @@ public class Vector {
 		return this;
 	}
 	
+	public double[] getAsArray()
+	{
+		double [] arr = new double[this.dimension];
+		for(int i = 0; i < arr.length; i++)
+		{
+			arr[i] = this.data.get(i);
+		}
+		
+		return arr;
+	}
+	
 	public static ArrayList<Vector> make_matrix(ArrayList<Vector> vectors) {
 		// TODO Auto-generated method stub
 		
@@ -241,6 +252,8 @@ public class Vector {
             return constants;			
 
 	}
+     
+     
 	
 	/* span function */
 	public static int span(ArrayList<Vector> vectors, int dimension) {
@@ -340,8 +353,8 @@ public class Vector {
         vectorList1.add(v3);
         vectorList1.add(v4);
         
-        Double [][] matrix1 = { {1.0,2.0,3.0},{4.0,5.0,6.0} };
-        Double [][] matrix2 = { {1.0,2.0,1.0},{3.0,4.0,1.0},{5.0,6.0,1.0} };
+        double [][] matrix1 = { {1.0,2.0,3.0},{4.0,5.0,6.0} };
+        double [][] matrix2 = { {1.0,2.0,1.0},{3.0,4.0,1.0},{5.0,6.0,1.0} };
         
         Matrix m1 = new Matrix(matrix1);
         Matrix m2 = new Matrix(matrix2);
@@ -349,6 +362,15 @@ public class Vector {
         Matrix m3 = m1.times(m2);
         
         m3.showMatrix();
+        
+        double [][] matrix4 = { {2,3,0}, {1,-2,-1}, {2,0,-1} };
+        Matrix m4 = new Matrix(matrix4);
+        
+        System.out.println("Before inverse matrix: \n");
+        m4.showMatrix();
+        Matrix m4Inverse = m4.inverse();
+        System.out.println("After Inverse matrix: \n");
+    	m4Inverse.showMatrix();
         
         
         
