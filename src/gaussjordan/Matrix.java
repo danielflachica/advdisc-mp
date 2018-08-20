@@ -3,7 +3,18 @@ package gaussjordan;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
- public class Matrix 
+
+/*
+ * Matrix class implemented by
+ * GALLEGA, Rgee
+ * LACHICA, Daniel
+ * RICANOR, Marl
+ *
+ * Submitted on: 08/20/18
+ * ADVDISC X22
+ */
+
+public class Matrix 
 {
 	private double matrix[][];
 	private int rows;
