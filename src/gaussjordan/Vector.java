@@ -291,9 +291,9 @@ public class Vector {
 	/* Driver Method */
 	public static void main(String[] args) {
 		Integer dimension = 5;
-		double[] arr = {1, 2, 4};
-        double[] arr2 = {1,3,0};
-        double[] arr3 = {1,5,5};
+		double[] arr = {1, 2, 3};
+        double[] arr2 = {2,3,1};
+        double[] arr3 = {3,1,2};
                 
         ArrayList<Vector> list = new ArrayList<>();
         Vector v = new Vector(arr,arr.length);
