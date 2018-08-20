@@ -215,7 +215,7 @@ public class Matrix
                     System.out.println("Det Before Row Addition: "+det);
               
                     //updates the determinant only if you need to scale
-                    det*=(scale);
+                    //det*=(scale);
                     
                     System.out.println("Det After Row Addition: "+det);
                     
@@ -295,52 +295,7 @@ public class Matrix
             
             return det;
         }
-        
-        public double rref(ArrayList<Vector> vectors, int dimension, double det){
-            int i = vectors.size()-1; 
-            //System.out.println("*************** AT RREF ********************");
-            while(i >= 0){
-                
-                double[] tempArr = new double[vectors.get(i).getDimension()];
-            
-                if(vectors.get(i).getData().get(i) != 0.00){// if the diagonal is not a zero
-                    for(int n = i-1; n >= 0; n--){ //gets the vector
-                        if(vectors.get(n).getData().get(i) != 0.00){// will only do row addition if the candidate row is not 0.00
-                            double scale = vectors.get(n).getData().get(i);
-                            //System.out.println("Scale for row addition: "+scale);
-                            
-                            System.out.println("Det Before Row Additon: "+det);
-                            
-                            det*=(scale);
-                            
-                            System.out.println("Det After Row Addition: "+det);
-                            
-                            //scale the vectors
-                            for(int m = 0; m < vectors.get(i).getDimension(); m++){
-                                tempArr[m] = vectors.get(i).getData().get(m) * scale * -1;
-                            }
-                
-                            Vector temp = new Vector(tempArr,tempArr.length);
-                            // performs row addition to the vector 
-                            vectors.set(n, temp.add(vectors.get(n)));
-                            
-                        }
-                    }
-                }else
-                    System.out.println("Vector "+i+"s diagonal is  0");
-                               
-               
-                i--;
-            }
-            
-            for(int f = 0; f < dimension;f++)
-                    System.out.println(Arrays.toString(vectors.get(f).getData().toArray()));
-            
-            System.out.println("Determinant at rref is: "+det);
-            
-            return det;
-               
-        }
+       
         
         public double Gauss_Jordan(ArrayList<Vector> vectors, int dimension,double det){
                  
@@ -348,7 +303,7 @@ public class Matrix
                 return 0.00;
 
             det = ref(vectors, dimension,det);
-            det = rref(vectors, dimension,det);
+            //det = rref(vectors, dimension,det);
             System.out.println("Determinant at Gauss Jordan is: "+det);
             return det;
         }
