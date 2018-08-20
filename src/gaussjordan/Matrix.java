@@ -508,6 +508,14 @@ public class Matrix
         	matrix[row2] = temp;
         }
         
+        public void transpose() {
+        	for(int i = 0; i < rows; i++)  {
+        		for(int j = 0 ; j < columns; j++) {
+        			matrix[i][j] = matrix[j][i];
+        		}
+        	}
+        }
+        
 
 		private void translateToVector(ArrayList<Vector> list) {
             
